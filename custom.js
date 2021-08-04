@@ -4,10 +4,6 @@ $(document).ready(function () {
     allowClear: true,
   });
 
-  // --------------------------------------------------------------------------------------------------------------------
-  //   Sync select2 with flickity, please don't change anything
-  // --------------------------------------------------------------------------------------------------------------------
-
   var slideItem = $(".Product__SlideItem");
   var thumbnailSlideItem = $(".Product__SlideshowNavImage");
   var optionVariant = $(".selection-variant");
