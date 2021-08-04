@@ -1,0 +1,31 @@
+{%- for option in product.options_with_values -%}
+    {% assign option_name = option.name | upcase %}
+{%- endfor -%}
+
+<select id="product-select-{{ product.id }}" name="id" title="Variant" class="js-example-placeholder-single selection-variant">
+    {%- for variant in product.variants -%}
+        <option {% if variant == selected_variant %}selected="selected"{% endif %} data-variant-img="{{ variant.image.src }}" {% unless variant.available %}data-sold-out="soldout"{% endunless %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }}</option>
+    {%- endfor -%}
+</select>
+
+{%- comment -%} add attribute data-variant-img to your main product image and thumbnail image. for example see this code in below {%- endcomment -%}
+
+<!-- main product image -->
+<div id="Media{{ media.id }}" data-variant-img="{{ media.image.src }}" tabindex="0" class="Product__SlideItem Product__SlideItem--image Carousel__Cell {% if initial_media_id == media.id %}is-selected{% endif %}" data-media-type="image" data-media-id="{{ media.id }}" data-media-position="{{ media.position }}" data-image-media-position="{% increment image_position %}" data-media-alt="{{ media.alt }}">
+    <div class="AspectRatio AspectRatio--withFallback" style="padding-bottom: {{ 100.0 | divided_by: media.aspect_ratio }}%; --aspect-ratio: {{ media.aspect_ratio }};">
+        {% assign image_url = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+        <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" data-expand="-100" alt="{{ media.alt | escape }}" data-max-width="{{ media.width }}" data-max-height="{{ media.height }}" data-original-src="{{ media | img_url: 'master' }}">
+        <span class="Image__Loader"></span>
+
+        <noscript>
+        <img src="{{ media | img_url: '800x' }}" alt="{{ media.alt | escape }}">
+        </noscript>
+    </div>
+</div>
+
+<!-- thumbnail product image -->
+<a href="{{ media | img_url: '1024x' }}" data-media-id="{{ media.id }}" data-variant-img="{{ media.image.src }}" class="Product__SlideshowNavImage AspectRatio {% if forloop.first %}is-selected{% endif %}" style="--aspect-ratio: {{ media.preview_image.aspect_ratio }}">
+    <img src="{{ media | img_url: '160x' }}" alt="{{ media.alt | escape }}">
+    {{- nav_item_badge -}}
+  </a>
