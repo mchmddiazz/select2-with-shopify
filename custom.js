@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $(".js-example-placeholder-single").select2({
+  $(".select2-options").select2({
     placeholder: "Choose First",
     allowClear: true,
   });

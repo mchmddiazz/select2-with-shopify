@@ -2,7 +2,7 @@
     {% assign option_name = option.name | upcase %}
 {%- endfor -%}
 
-<select id="product-select-{{ product.id }}" name="id" title="Variant" class="js-example-placeholder-single selection-variant">
+<select id="product-select-{{ product.id }}" name="id" title="Variant" class="select2-options selection-variant">
     {%- for variant in product.variants -%}
         <option {% if variant == selected_variant %}selected="selected"{% endif %} data-variant-img="{{ variant.image.src }}" {% unless variant.available %}data-sold-out="soldout"{% endunless %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }}</option>
     {%- endfor -%}
